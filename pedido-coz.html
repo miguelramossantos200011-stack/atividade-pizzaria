@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./pedido-coz.css">
+    <title>Pedido Cozinha - Pizzaria Forno e Código</title>
+</head>
+<body>
+    <div class="container-principal">
+        <!-- DIV LATERAL - PRÓXIMOS PEDIDOS -->
+        <div class="sidebar">
+            <h2 class="sidebar-titulo">PRÓXIMOS PEDIDOS</h2>
+            <div class="lista-pedidos">
+                <div class="pedido-item">
+                    <span class="pedido-numero">#001</span>
+                    <span class="pedido-descricao">Pizza Margherita</span>
+                </div>
+                <div class="pedido-item">
+                    <span class="pedido-numero">#002</span>
+                    <span class="pedido-descricao">Pizza Calabresa</span>
+                </div>
+                <div class="pedido-item">
+                    <span class="pedido-numero">#003</span>
+                    <span class="pedido-descricao">Pizza Portuguesa</span>
+                </div>
+                <div class="pedido-item">
+                    <span class="pedido-numero">#004</span>
+                    <span class="pedido-descricao">Pizza Quatro Queijos</span>
+                </div>
+                <div class="pedido-item">
+                    <span class="pedido-numero">#005</span>
+                    <span class="pedido-descricao">Pizza Frango Catupiry</span>
+                </div>
+                <div class="pedido-item">
+                    <span class="pedido-numero">#006</span>
+                    <span class="pedido-descricao">Pizza Chocolate</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ÁREA CENTRAL -->
+        <div class="area-central">
+            <div class="pedido-atual">
+                <h2 class="pedido-titulo">PEDIDO ATUAL</h2>
+                <div class="pedido-info">
+                    <span class="pedido-numero-atual">#001</span>
+                    <span class="pedido-nome-atual">Pizza Margherita</span>
+                </div>
+            </div>
+
+            <!-- RECEITAS LADO A LADO -->
+            <div class="receitas-container">
+                <!-- RECEITA DA MASSA -->
+                <div class="receita-card">
+                    <h3 class="receita-titulo"> RECEITA DA MASSA</h3>
+                    <div class="receita-conteudo">
+                        <ul>
+                            <li>1 kg de farinha de trigo</li>
+                            <li>600 ml de água morna</li>
+                            <li>30 g de fermento biológico</li>
+                            <li>20 g de sal</li>
+                            <li>50 ml de azeite</li>
+                            <li>10 g de açúcar</li>
+                        </ul>
+                        <div class="modo-preparo">
+                            <h4>Modo de preparo:</h4>
+                            <p>Dissolver o fermento e o açúcar na água morna. Adicionar aos poucos a farinha, o sal e o azeite. Sovar até desgrudar das mãos. Deixar descansar por 1 hora.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RECEITA DO RECHEIO -->
+                <div class="receita-card">
+                    <h3 class="receita-titulo"> RECEITA DO RECHEIO</h3>
+                    <div class="receita-conteudo">
+                        <ul>
+                            <li>300g de mussarela</li>
+                            <li>200g de molho de tomate</li>
+                            <li>Tomates frescos fatiados</li>
+                            <li>Manjericão fresco</li>
+                            <li>Orégano a gosto</li>
+                            <li>Azeite para finalizar</li>
+                        </ul>
+                        <div class="modo-preparo">
+                            <h4>Modo de preparo:</h4>
+                            <p>Espalhar o molho sobre a massa aberta. Distribuir a mussarela, os tomates e o manjericão. Finalizar com orégano e azeite. Levar ao forno por 15-20 minutos a 250°C.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTÃO ABAIXO DAS RECEITAS -->
+            <div class="botao-container">
+                <button class="btn-proximo" onclick="proximoPedido()">
+                     PRÓXIMO PEDIDO 
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Lista de pedidos
+        let pedidos = [
+            { numero: "#001", nome: "Pizza Margherita", massa: "Massa tradicional", recheio: "Mussarela, tomate, manjericão" },
+            { numero: "#002", nome: "Pizza Calabresa", massa: "Massa tradicional", recheio: "Calabresa, cebola, mussarela" },
+            { numero: "#003", nome: "Pizza Portuguesa", massa: "Massa tradicional", recheio: "Presunto, ovo, cebola, ervilha" },
+            { numero: "#004", nome: "Pizza Quatro Queijos", massa: "Massa tradicional", recheio: "Mussarela, provolone, parmesão, gorgonzola" },
+            { numero: "#005", nome: "Pizza Frango Catupiry", massa: "Massa tradicional", recheio: "Frango desfiado, catupiry, milho" },
+            { numero: "#006", nome: "Pizza Chocolate", massa: "Massa doce", recheio: "Chocolate ao leite, granulado, morangos" }
+        ];
+
+        let pedidoAtual = 0;
+
+        function proximoPedido() {
+            if (pedidoAtual < pedidos.length - 1) {
+                pedidoAtual++;
+                atualizarTela();
+            } else {
+                alert(" Todos os pedidos foram concluídos! ");
+            }
+        }
+
+        function atualizarTela() {
+            // Atualiza pedido atual
+            document.querySelector('.pedido-numero-atual').textContent = pedidos[pedidoAtual].numero;
+            document.querySelector('.pedido-nome-atual').textContent = pedidos[pedidoAtual].nome;
+            
+            // Atualiza destaques na lista lateral
+            const itens = document.querySelectorAll('.pedido-item');
+            itens.forEach((item, index) => {
+                if (index === pedidoAtual) {
+                    item.classList.add('ativo');
+                } else {
+                    item.classList.remove('ativo');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

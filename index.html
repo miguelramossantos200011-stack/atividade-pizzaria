@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Promoção - Pizzaria Forno e Código</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="icones-esquerda">
+                <div class="homeimg" onclick="irParaHome()">
+                    <img src="imagens/home.png" alt="Home">
+                </div>
+
+                <div class="cardapio" onclick="irParaCardapio()">
+                    <img src="imagens/cardapio.png" alt="Cardápio">
+                </div>
+
+                <div class="carrinho" onclick="irParaCarrinho()">
+                    <img src="imagens/carrinho.png" alt="Carrinho">
+                </div>
+            </div>
+
+            <div class="title">
+                <h1>Pizzaria Forno e Código</h1>
+            </div>
+
+            <div class="pessoa" onclick="irParaCadastro()">
+                <img src="imagens/pessoa.png" alt="Perfil">
+            </div>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="container-promocao">
+            <div class="subtitulo">
+                <h2> Promoção do dia </h2>
+            </div>
+
+            <div class="promo">
+                <ul>
+                    <li>Pizza calabresa especial</li> 
+                    <li>Uma Coca Cola 2 litros</li>
+                    <li>1 esfiha doce à sua escolha</li>
+                </ul>
+            </div>
+            
+            <div class="preco-promocional">
+                <p>Por apenas:</p>
+                <p class="preco">R$ 49,90</p>
+                <p class="obs">*Oferta válida por tempo limitado!</p>
+            </div>
+            
+            <button class="btn-comprar" onclick="comprarPromocao()">COMPRAR PROMOÇÃO</button>
+        </div>
+    </main>
+
+    <footer>
+        <h3>R. Lima-Mei, 6969 - Teukumiadora - Japão</h3>
+    </footer>
+
+    <script>
+        function irParaHome() {
+            window.location.href = "index.html";
+        }
+        
+        function irParaCardapio() {
+            window.location.href = "cardapio.html";
+        }
+        
+        function irParaCarrinho() {
+            window.location.href = "carrinho.html";
+        }
+        
+        function irParaCadastro() {
+            window.location.href = "cadastropessoa.html";
+        }
+        
+        function comprarPromocao() {
+            let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            let promocao = {
+                nome: "PROMOÇÃO - Pizza Calabresa + Coca 2L + Esfiha Doce",
+                preco: 49.90,
+                quantidade: 1
+            };
+            carrinho.push(promocao);
+            localStorage.setItem('carrinho', JSON.stringify(carrinho));
+            alert("Promoção adicionada ao carrinho!");
+            window.location.href = "carrinho.html";
+        }
+    </script>
+</body>
+</html>

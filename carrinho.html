@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./carrinho.css">
+    <title>Carrinho - Pizzaria Forno e Código</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="icones-esquerda">
+                <div class="homeimg" onclick="irParaHome()">
+                    <img src="imagens/home.png" alt="Home">
+                </div>
+
+                <div class="cardapio" onclick="irParaCardapio()">
+                    <img src="imagens/cardapio.png" alt="Cardápio">
+                </div>
+
+                <div class="carrinho" onclick="irParaCarrinho()">
+                    <img src="imagens/carrinho.png" alt="Carrinho">
+                </div>
+            </div>
+
+            <div class="title">
+                <h1>Pizzaria Forno e Código</h1>
+            </div>
+
+            <div class="pessoa" onclick="irParaCadastro()">
+                <img src="imagens/pessoa.png" alt="Perfil">
+            </div>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="container-carrinho">
+            <div class="subtitulo">
+                <h2> MEU CARRINHO </h2>
+            </div>
+
+            <div id="carrinho-vazio" style="display: none; text-align: center; padding: 40px;">
+                <h3 style="color: white;">Seu carrinho está vazio!</h3>
+                <button class="btn-continuar" onclick="continuarComprando()" style="margin-top: 20px;"> Continuar Comprando</button>
+            </div>
+
+            <div id="carrinho-cheio">
+                <div class="tabela-carrinho">
+                    <div class="tabela-cabecalho">
+                        <div class="col-produto">Produto</div>
+                        <div class="col-quantidade">Quantidade</div>
+                        <div class="col-preco">Preço Unit.</div>
+                        <div class="col-total">Subtotal</div>
+                        <div class="col-acoes">Ações</div>
+                    </div>
+
+                    <div class="tabela-corpo" id="itens-carrinho">
+                        <!-- Itens serão inseridos aqui via JavaScript -->
+                    </div>
+                </div>
+
+                <div class="resumo-pedido">
+                    <div class="resumo-linha">
+                        <span>Subtotal:</span>
+                        <span id="subtotal-total">R$ 0,00</span>
+                    </div>
+                    <div class="resumo-linha">
+                        <span>Taxa de entrega:</span>
+                        <span>R$ 5,00</span>
+                    </div>
+                    <div class="resumo-linha">
+                        <span>Desconto:</span>
+                        <span id="desconto">R$ 0,00</span>
+                    </div>
+                    <div class="resumo-linha total">
+                        <span>Total:</span>
+                        <span id="total-final">R$ 0,00</span>
+                    </div>
+                </div>
+
+                <div class="cupom-container">
+                    <input type="text" id="cupom-input" placeholder="Digite seu cupom de desconto">
+                    <button class="btn-cupom" onclick="aplicarCupom()">Aplicar Cupom</button>
+                </div>
+
+                <div class="acoes-carrinho">
+                    <button class="btn-continuar" onclick="continuarComprando()">Continuar Comprando</button>
+                    <button class="btn-finalizar" onclick="finalizarPedido()">Finalizar Pedido</button>
+                    <button class="btn-limpar" onclick="limparCarrinho()">Limpar Carrinho</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <h3>R. Lima-Mei, 6969 - Teukumiadora - Japão</h3>
+    </footer>
+
+    <script>
+        let carrinho = [];
+        let descontoAplicado = 0;
+        let cupomUsado = "";
+
+        function irParaHome() {
+            window.location.href = "index.html";
+        }
+        
+        function irParaCardapio() {
+            window.location.href = "cardapio.html";
+        }
+        
+        function irParaCarrinho() {
+            window.location.href = "carrinho.html";
+        }
+        
+        function irParaCadastro() {
+            window.location.href = "cadastro.html";
+        }
+
+        function carregarCarrinho() {
+            carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+            
+            if (carrinho.length === 0) {
+                document.getElementById('carrinho-vazio').style.display = 'block';
+                document.getElementById('carrinho-cheio').style.display = 'none';
+            } else {
+                document.getElementById('carrinho-vazio').style.display = 'none';
+                document.getElementById('carrinho-cheio').style.display = 'block';
+                exibirItensCarrinho();
+            }
+        }
+
+        function exibirItensCarrinho() {
+            let html = '';
+            for (let i = 0; i < carrinho.length; i++) {
+                let subtotal = carrinho[i].preco * carrinho[i].quantidade;
+                html += `
+                    <div class="item-carrinho">
+                        <div class="col-produto">
+                            <span class="produto-nome">${carrinho[i].nome}</span>
+                        </div>
+                        <div class="col-quantidade">
+                            <button class="btn-qtd" onclick="alterarQuantidade(${i}, -1)">-</button>
+                            <span class="quantidade" id="qtd-${i}">${carrinho[i].quantidade}</span>
+                            <button class="btn-qtd" onclick="alterarQuantidade(${i}, 1)">+</button>
+                        </div>
+                        <div class="col-preco">R$ ${carrinho[i].preco.toFixed(2)}</div>
+                        <div class="col-total" id="subtotal-${i}">R$ ${subtotal.toFixed(2)}</div>
+                        <div class="col-acoes">
+                            <button class="btn-remover" onclick="removerItem(${i})">🗑️</button>
+                        </div>
+                    </div>
+                `;
+            }
+            document.getElementById('itens-carrinho').innerHTML = html;
+            calcularTotal();
+        }
+
+        function alterarQuantidade(index, delta) {
+            let novaQuantidade = carrinho[index].quantidade + delta;
+            if (novaQuantidade >= 1) {
+                carrinho[index].quantidade = novaQuantidade;
+                localStorage.setItem('carrinho', JSON.stringify(carrinho));
+                carregarCarrinho();
+            }
+        }
+
+        function removerItem(index) {
+            if (confirm("Deseja remover este item do carrinho?")) {
+                carrinho.splice(index, 1);
+                localStorage.setItem('carrinho', JSON.stringify(carrinho));
+                carregarCarrinho();
+            }
+        }
+
+        function calcularTotal() {
+            let subtotal = 0;
+            for (let i = 0; i < carrinho.length; i++) {
+                subtotal += carrinho[i].preco * carrinho[i].quantidade;
+            }
+            
+            document.getElementById("subtotal-total").innerText = `R$ ${subtotal.toFixed(2)}`;
+            let entrega = 5.00;
+            let total = subtotal + entrega - descontoAplicado;
+            document.getElementById("total-final").innerText = `R$ ${total.toFixed(2)}`;
+        }
+
+        function aplicarCupom() {
+            let cupom = document.getElementById("cupom-input").value.toUpperCase();
+            let subtotal = 0;
+            for (let i = 0; i < carrinho.length; i++) {
+                subtotal += carrinho[i].preco * carrinho[i].quantidade;
+            }
+            
+            if (cupom === "PIZZA10" && cupomUsado !== "PIZZA10") {
+                descontoAplicado = (subtotal * 0.10);
+                document.getElementById("desconto").innerText = `R$ ${descontoAplicado.toFixed(2)}`;
+                cupomUsado = "PIZZA10";
+                alert("Cupom PIZZA10 aplicado! 10% de desconto!");
+                calcularTotal();
+            } else if (cupom === "FRETE" && cupomUsado !== "FRETE") {
+                descontoAplicado = 5;
+                document.getElementById("desconto").innerText = `R$ 5,00`;
+                cupomUsado = "FRETE";
+                alert("Frete grátis aplicado!");
+                calcularTotal();
+            } else if (cupomUsado === cupom) {
+                alert("Este cupom já foi utilizado!");
+            } else {
+                alert("Cupom inválido! Tente PIZZA10 ou FRETE");
+            }
+        }
+
+        function continuarComprando() {
+            window.location.href = "cardapio.html";
+        }
+
+        function finalizarPedido() {
+            if (carrinho.length === 0) {
+                alert("Seu carrinho está vazio!");
+            } else {
+                alert(" Pedido finalizado com sucesso! \n\nObrigado por comprar na Pizzaria Forno e Código!");
+                localStorage.removeItem('carrinho');
+                window.location.href = "index.html";
+            }
+        }
+
+        function limparCarrinho() {
+            if (confirm("Tem certeza que deseja limpar todo o carrinho?")) {
+                localStorage.removeItem('carrinho');
+                carregarCarrinho();
+            }
+        }
+
+        // Carregar carrinho ao abrir a página
+        carregarCarrinho();
+    </script>
+</body>
+</html>

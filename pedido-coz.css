@@ -1,0 +1,269 @@
+@font-face {
+    font-family: 'arabe';
+    src: url('./imagens/RubikDirt-Regular') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --cor-fundo: #ac5a5ac4;
+    --cor-sidebar: #050000c4;
+    --cor-destaque: #ff3a3a;
+    --cor-texto-branco: #ffffff;
+    --cor-card: #1d0303c4;
+    --cor-hover: #1d0303c4;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'arabe', sans-serif;
+    background-image: url("./imagens/fundo-coz.png");
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.container-principal {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 280px;
+    background-color: var(--cor-sidebar);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    backdrop-filter: blur(5px);
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: var(--cor-destaque);
+    border-radius: 10px;
+}
+
+.sidebar-titulo {
+    color: var(--cor-texto-branco);
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--cor-destaque);
+    text-transform: uppercase;
+}
+
+.lista-pedidos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.pedido-item {
+    background-color: var(--cor-card);
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pedido-item:hover {
+    background-color: var(--cor-hover);
+    transform: translateX(5px);
+}
+
+.pedido-item.ativo {
+    background-color: var(--cor-destaque);
+    border-left: 4px solid white;
+}
+
+.pedido-numero {
+    color: var(--cor-texto-branco);
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.pedido-descricao {
+    color: var(--cor-texto-branco);
+    font-size: 14px;
+}
+
+.area-central {
+    flex: 1;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.area-central::-webkit-scrollbar {
+    width: 5px;
+}
+
+.area-central::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.area-central::-webkit-scrollbar-thumb {
+    background: var(--cor-destaque);
+    border-radius: 10px;
+}
+
+.pedido-atual {
+    background-color: var(--cor-card);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.pedido-titulo {
+    color: var(--cor-texto-branco);
+    font-size: 28px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.pedido-info {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    align-items: center;
+}
+
+.pedido-numero-atual {
+    background-color: var(--cor-destaque);
+    padding: 10px 20px;
+    border-radius: 50px;
+    color: var(--cor-texto-branco);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.pedido-nome-atual {
+    color: var(--cor-texto-branco);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.receitas-container {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 25px;
+    flex: 1;
+}
+
+.receita-card {
+    flex: 1;
+    background-color: var(--cor-card);
+    border-radius: 15px;
+    padding: 20px;
+    backdrop-filter: blur(5px);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.receita-card:hover {
+    transform: translateY(-5px);
+}
+
+.receita-titulo {
+    color: var(--cor-destaque);
+    font-size: 22px;
+    margin-bottom: 15px;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--cor-destaque);
+}
+
+.receita-conteudo {
+    flex: 1;
+}
+
+.receita-conteudo ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.receita-conteudo li {
+    color: var(--cor-texto-branco);
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 14px;
+}
+
+.modo-preparo {
+    margin-top: 15px;
+}
+
+.modo-preparo h4 {
+    color: var(--cor-texto-branco);
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.modo-preparo p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.botao-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.btn-proximo {
+    background-color: var(--cor-destaque);
+    color: var(--cor-texto-branco);
+    border: none;
+    padding: 15px 40px;
+    font-size: 20px;
+    font-family: 'arabe', sans-serif;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-proximo:hover {
+    background-color: #cc2e2e;
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.btn-proximo:active {
+    transform: scale(0.98);
+}

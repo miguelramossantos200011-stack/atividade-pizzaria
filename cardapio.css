@@ -1,0 +1,275 @@
+@font-face {
+    font-family: 'arabe';
+    src: url('./imagens/RubikDirt-Regular') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --cor-fundo-cardapio: #ac5a5ac4;
+    --cor-header: #ff3a3a;
+    --cor-destaque: #050000c4;
+    --cor-texto-branco: #ffffff;
+    --cor-item-hover: #b96e6ec4;
+    --cor-preco: #ff3a3a;
+    --cor-botao: #ff3a3a;
+    --cor-botao-hover: #cc2e2e;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: var(--cor-header);
+    width: 100%;
+    height: 50px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+nav {
+    width: 100%;
+    height: 50px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.icones-esquerda {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    position: absolute;
+    left: 20px;
+}
+
+.homeimg, 
+.carrinho, 
+.cardapio {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.homeimg:hover, 
+.carrinho:hover, 
+.cardapio:hover {
+    transform: scale(1.1);
+}
+
+.homeimg img, 
+.carrinho img, 
+.cardapio img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+.title h1 {
+    font-size: 24px;
+    margin: 0;
+    color: var(--cor-texto-branco);
+}
+
+.pessoa {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    position: absolute;
+    right: 20px;
+}
+
+.pessoa:hover {
+    transform: scale(1.1);
+}
+
+.pessoa img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+body {
+    font-family: 'arabe', sans-serif;
+    background-image: url("imagens/fundo.png");
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+.container-cardapio {
+    max-width: 900px;
+    width: 100%;
+    background-color: var(--cor-fundo-cardapio);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.subtitulo {
+    text-align: center;
+    width: 100%;
+}
+
+.subtitulo h2 {
+    color: var(--cor-texto-branco);
+    font-size: 36px;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.categoria {
+    background-color: var(--cor-destaque);
+    border-radius: 15px;
+    padding: 25px;
+    transition: transform 0.3s ease;
+}
+
+.categoria:hover {
+    transform: translateY(-5px);
+}
+
+.categoria-titulo {
+    color: var(--cor-texto-branco);
+    font-size: 28px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid var(--cor-header);
+    display: inline-block;
+}
+
+.itens-cardapio {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.item {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.item:hover {
+    background-color: var(--cor-item-hover);
+    transform: translateX(10px);
+}
+
+.item-info {
+    flex: 1;
+}
+
+.item-info h4 {
+    color: var(--cor-texto-branco);
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.item-info p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    font-style: italic;
+}
+
+.item-preco {
+    color: var(--cor-preco);
+    font-size: 24px;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 8px 20px;
+    border-radius: 50px;
+    white-space: nowrap;
+    margin-left: 15px;
+}
+
+.btn-adicionar {
+    background-color: var(--cor-botao);
+    color: var(--cor-texto-branco);
+    border: none;
+    padding: 8px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'arabe', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin-left: 15px;
+    white-space: nowrap;
+}
+
+.btn-adicionar:hover {
+    background-color: var(--cor-botao-hover);
+    transform: scale(1.05);
+}
+
+
+footer {
+    background-color: #000000A8;
+    width: 100%;
+    text-align: center;
+    color: var(--cor-texto-branco);
+    padding: 15px 0;
+    margin-top: auto;
+}
+
+footer h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: normal;
+}
+

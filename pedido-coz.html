@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pedido-coz.css">
+    <link rel="stylesheet" href="pedido-coz.css">
     <title>Pedido Cozinha - Pizzaria Forno e Código</title>
 </head>
 <body>
     <div class="container-principal">
-        <!-- DIV LATERAL - PRÓXIMOS PEDIDOS -->
         <div class="sidebar">
             <h2 class="sidebar-titulo">PRÓXIMOS PEDIDOS</h2>
             <div class="lista-pedidos">
@@ -49,9 +48,8 @@
                 </div>
             </div>
 
-            <!-- RECEITAS LADO A LADO -->
+           
             <div class="receitas-container">
-                <!-- RECEITA DA MASSA -->
                 <div class="receita-card">
                     <h3 class="receita-titulo"> RECEITA DA MASSA</h3>
                     <div class="receita-conteudo">
@@ -70,7 +68,6 @@
                     </div>
                 </div>
 
-                <!-- RECEITA DO RECHEIO -->
                 <div class="receita-card">
                     <h3 class="receita-titulo"> RECEITA DO RECHEIO</h3>
                     <div class="receita-conteudo">
@@ -90,7 +87,7 @@
                 </div>
             </div>
 
-            <!-- BOTÃO ABAIXO DAS RECEITAS -->
+           >
             <div class="botao-container">
                 <button class="btn-proximo" onclick="proximoPedido()">
                      PRÓXIMO PEDIDO 
@@ -100,7 +97,6 @@
     </div>
 
     <script>
-        // Lista de pedidos
         let pedidos = [
             { numero: "#001", nome: "Pizza Margherita", massa: "Massa tradicional", recheio: "Mussarela, tomate, manjericão" },
             { numero: "#002", nome: "Pizza Calabresa", massa: "Massa tradicional", recheio: "Calabresa, cebola, mussarela" },
@@ -122,11 +118,9 @@
         }
 
         function atualizarTela() {
-            // Atualiza pedido atual
             document.querySelector('.pedido-numero-atual').textContent = pedidos[pedidoAtual].numero;
             document.querySelector('.pedido-nome-atual').textContent = pedidos[pedidoAtual].nome;
             
-            // Atualiza destaques na lista lateral
             const itens = document.querySelectorAll('.pedido-item');
             itens.forEach((item, index) => {
                 if (index === pedidoAtual) {

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Style/cadastropessoa.css">
+    <title>Cadastro - Pizzaria Forno e Código</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="icones-esquerda">
+                <div class="homeimg" onclick="irParaHome()">
+                    <img src="../imagens/home.png" alt="Home">
+                </div>
+
+                <div class="cardapio" onclick="irParaCardapio()">
+                    <img src="../imagens/cardapio.png" alt="Cardápio">
+                </div>
+
+                <div class="carrinho" onclick="irParaCarrinho()">
+                    <img src="../imagens/carrinho.png" alt="Carrinho">
+                </div>
+            </div>
+
+            <div class="title">
+                <h1>Pizzaria Forno e Código</h1>
+            </div>
+
+            <div class="pessoa" onclick="irParaCadastro()">
+                <img src="../imagens/pessoa.png" alt="Perfil">
+            </div>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="cadastro">
+            <div class="subtitulo">
+                <h2>Cadastro de Cliente</h2>
+            </div>
+
+            <form id="formCadastro" onsubmit="return cadastrarUsuario(event)">
+                <div class="prgts">
+                    <label for="CNome">Nome completo:</label>
+                    <input name="nome" type="text" id="CNome" placeholder="Digite seu nome completo" required>
+                </div>
+
+                <div class="prgts">
+                    <label for="CCpf">CPF:</label>
+                    <input name="cpf" type="text" id="CCpf" placeholder="111.111.111-11" required>
+                </div>
+
+                <div class="prgts">
+                    <label for="CEndereco">Endereço:</label>
+                    <input name="endereco" type="text" id="CEndereco" placeholder="Rua, número, bairro" required>
+                </div>
+
+                <div class="prgts">
+                    <label for="CEmail">E-mail:</label>
+                    <input name="email" type="email" id="CEmail" placeholder="exemplo@email.com" required>
+                </div>
+
+                <div class="prgts">
+                    <label for="CTelefone">Telefone:</label>
+                    <input name="telefone" type="tel" id="CTelefone" placeholder="(00) 00000-0000" required>
+                </div>
+
+                <div class="prgts">
+                    <label for="CSenha">Senha:</label>
+                    <input name="senha" type="password" id="CSenha" placeholder="Digite sua senha" required>
+                </div>
+
+                <div class="prgts">
+                    <label for="CSenhaConfirmar">Confirmar senha:</label>
+                    <input name="senha_confirmar" type="password" id="CSenhaConfirmar" placeholder="Confirme sua senha" required>
+                </div>
+
+                <div class="prgts">
+                    <label for="formaPagamento">Forma de pagamento:</label>
+                    <select name="forma de pagamento" id="formaPagamento" required>
+                        <option value="">Selecione a forma de pagamento</option>
+                        <option value="MC">Master card</option>
+                        <option value="C">Cielo</option>
+                        <option value="T">Tiket</option>
+                        <option value="P">Pix</option>
+                        <option value="D">Dinheiro</option>
+                    </select>
+                </div>
+
+                <div class="prgts botao-container">
+                    <button type="submit" class="botao-enviar">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <h3>R. Lima-Mei, 6969 - Teukumiadora - Japão</h3>
+    </footer>
+
+    <script>
+        function irParaHome() {
+            window.location.href = "index.html";
+        }
+        
+        function irParaCardapio() {
+            window.location.href = "cardapio.html";
+        }
+        
+        function irParaCarrinho() {
+            window.location.href = "carrinho.html";
+        }
+        
+        function irParaCadastro() {
+            window.location.href = "cadastro.html";
+        }
+        
+        function cadastrarUsuario(event) {
+            event.preventDefault();
+            
+            let senha = document.getElementById('CSenha').value;
+            let confirmarSenha = document.getElementById('CSenhaConfirmar').value;
+            
+            if (senha !== confirmarSenha) {
+                alert("As senhas não coincidem!");
+                return false;
+            }
+            
+            let usuario = {
+                nome: document.getElementById('CNome').value,
+                cpf: document.getElementById('CCpf').value,
+                endereco: document.getElementById('CEndereco').value,
+                email: document.getElementById('CEmail').value,
+                telefone: document.getElementById('CTelefone').value,
+                formaPagamento: document.getElementById('formaPagamento').value
+            };
+            
+            localStorage.setItem('usuario', JSON.stringify(usuario));
+            alert("Cadastro realizado com sucesso!\nBem-vindo(a) " + usuario.nome);
+            window.location.href = "index.html";
+            
+            return true;
+        }
+    </script>
+</body>
+</html>
